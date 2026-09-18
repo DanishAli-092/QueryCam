@@ -1,0 +1,13 @@
+# Python and Environments
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Heavy AI Models and Video Datasets
+models/
+data/
+runs/
+*.pt
+*.mp4
+*.avi
