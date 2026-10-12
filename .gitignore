@@ -1,13 +1,99 @@
-# Python and Environments
+# # --- Python ---
+# venv/
+# env/
+# __pycache__/
+# *.pyc
+# *.pyo
+# *.egg-info/
+# .mypy_cache/
+# .pytest_cache/
+
+# # --- Environment / secrets ---
+# .env
+# .streamlit/secrets.toml
+
+# # --- IDE ---
+# .vscode/
+# .idea/
+
+# # --- OS junk ---
+# .DS_Store
+# Thumbs.db
+
+# # --- PyInstaller build output ---
+# build/
+# dist/
+
+# # --- Query-Cam runtime data (generated at run time, never source) ---
+# data/uploads/*
+# data/crops/*
+# data/db/*
+# data/vector_store/*
+# data/reports/*
+# !data/uploads/.gitkeep
+# !data/crops/.gitkeep
+# !data/db/.gitkeep
+# !data/vector_store/.gitkeep
+# !data/reports/.gitkeep
+
+# # --- Model weights: large binaries, never commit to git ---
+# data/weights/*.onnx
+# data/weights/*.gguf
+# data/weights/*.bin
+# data/weights/*.safetensors
+# !data/weights/.gitkeep
+
+# # --- HuggingFace cache, if it ever ends up inside the repo folder ---
+# .cache/
+
+
+# --- Python ---
 venv/
 env/
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
 
-# Heavy AI Models and Video Datasets
-models/
-data/
-runs/
-*.pt
-*.mp4
-*.avi
+# --- Environment / secrets ---
+.env
+.streamlit/secrets.toml
+
+# --- IDE ---
+.vscode/
+.idea/
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+
+# --- PyInstaller build output ---
+build/
+dist/
+
+# --- Query-Cam runtime data (generated at run time, never source) ---
+data/uploads/*
+data/crops/*
+data/db/*
+data/vector_store/*
+data/reports/*
+data/processed_videos/*
+!data/uploads/.gitkeep
+!data/crops/.gitkeep
+!data/db/.gitkeep
+!data/vector_store/.gitkeep
+!data/reports/.gitkeep
+!data/processed_videos/.gitkeep
+
+# --- Model weights: large binaries, never commit to git ---
+data/weights/*.onnx
+data/weights/*.gguf
+data/weights/*.bin
+data/weights/*.safetensors
+!data/weights/.gitkeep
+
+# --- HuggingFace cache, if it ever ends up inside the repo folder ---
+.cache/
+.processed_videos/

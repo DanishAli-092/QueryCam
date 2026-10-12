@@ -1,8 +1,84 @@
-﻿streamlit
-opencv-python
-ultralytics
-torch
-torchvision
-transformers
-Pillow
+# Query-Cam — pinned for reproducible offline builds on Windows.
+#
+# INSTALL ORDER MATTERS. Run these two commands SEPARATELY, BEFORE
+# `pip install -r requirements.txt`:
+#
+#   1) pip install torch==2.3.1 --index-url https://download.pytorch.org/whl/cu121
+#   2) pip install llama-cpp-python==0.2.90 --only-binary=:all: ^
+#        --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124
+#
+# Both ship as prebuilt wheels for their own reasons (torch: to force the
+# CUDA build instead of the CPU-only default; llama-cpp-python: to skip
+# compiling from source entirely — see the long comment near that line
+# below for why that matters on a grading machine with no Visual Studio
+# Build Tools installed). Command 2 is ALSO listed below as a
+# --extra-index-url + --only-binary directive so a bare
+# `pip install -r requirements.txt` still resolves it correctly if you
+# forget to run it standalone first — but running it first avoids a
+# slow, confusing resolver pass.
+#
+# Target hardware: Quadro M1200 (Maxwell, SM 5.0). Verified combination:
+# driver 572.76 (CUDA 12.8 capable) + torch cu121 wheel + llama-cpp-python
+# cu124 wheel — CUDA minor-version skew between the two is fine; what
+# matters is the installed NVIDIA driver being new enough for both.
 
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124
+--only-binary=llama-cpp-python
+
+streamlit==1.38.0
+opencv-python==4.10.0.84
+
+# onnxruntime-gpu is what YOLOv11Detector's CPUExecutionProvider path
+# actually ships with (see core/models/yolo_detector.py's module
+# docstring for why YOLO is deliberately kept CPU-only regardless).
+# KNOWN CONFLICT: chromadb depends on plain `onnxruntime` (CPU-only) and
+# pip may resolve/install both packages, silently shadowing the GPU
+# build. If `YOLOv11Detector.load_model()`'s log line
+# "onnxruntime available providers: [...]" doesn't list
+# 'CUDAExecutionProvider' and you expected it to, run:
+#   pip uninstall onnxruntime onnxruntime-gpu -y
+#   pip install onnxruntime-gpu==1.18.1
+# (CPU-only is fine and expected for YOLO by design — this note is only
+# for diagnosing an unexpected provider list.)
+onnxruntime-gpu==1.18.1
+
+transformers==4.44.2
+sentence-transformers==3.0.1
+chromadb==0.5.5
+bcrypt==4.2.0
+fpdf2==2.7.9                   # PDFExporter (US-11)
+
+# Pinned BELOW 2.0 deliberately: numpy 2.x breaks torch==2.3.1,
+# chromadb==0.5.5 (np.float_ was removed in NumPy 2.0), and
+# onnxruntime==1.18.1 all at once. llama-cpp-python's own dependency
+# resolution will try to pull numpy>=2 if this pin isn't here — keep it.
+numpy==1.26.4
+
+pydantic==2.8.2
+pillow==10.4.0                 # BLIPCaptioner: ndarray -> PIL conversion
+
+# Qwen2.5-1.5B-Instruct GGUF inference.
+#
+# DO NOT let pip compile llama-cpp-python from source (needs Visual Studio
+# Build Tools + CUDA Toolkit + nmake on Windows, which most grading/demo
+# machines won't have — this is the exact
+# "CMake Error: CMAKE_C_COMPILER not set" failure if you skip the
+# --extra-index-url directive above). Verified working on Quadro M1200
+# (Maxwell, SM 5.0) with driver 572.76 / CUDA 12.8: 29/29 layers offload
+# to GPU, ~1.3GB VRAM used, no "no kernel image is available" error.
+llama-cpp-python==0.2.90
+# Redistributable CUDA runtime + cuBLAS DLLs that the prebuilt wheel above
+# links against but does not bundle — avoids installing the full,
+# multi-GB CUDA Toolkit just to get llama.dll's dependencies. See
+# core/models/qwen_llm.py::_add_cuda_dlls() for how these get found at
+# runtime (they land inside site-packages, which Windows does not search
+# for DLLs by default).
+nvidia-cuda-runtime-cu12==12.4.127
+nvidia-cublas-cu12==12.4.5.8
+
+# --- Desktop shell (desktop_app.py) ---
+pywebview==6.2.1                # wraps the local Streamlit server in a native OS window
+pyinstaller==6.10.0              # for building the final standalone .exe (see README)
+
+# --- System monitor (optional sidebar CPU/RAM/GPU widget) ---
+psutil==6.0.0

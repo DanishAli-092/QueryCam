@@ -1,0 +1,135 @@
+2026-10-12 23:47:55.139 
+Warning: the config option 'server.enableCORS=false' is not compatible with 'server.enableXsrfProtection=true'.
+As a result, 'server.enableCORS' is being overridden to 'true'.
+
+More information:
+In order to protect against CSRF attacks, we send a cookie with each request.
+To do so, we must specify allowable origins, which places a restriction on
+cross-origin resource sharing.
+
+If cross origin resource sharing is required, please disable server.enableXsrfProtection.
+            
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:8765
+
+INFO:querycam.storage.sqlite:SQLite schema verified/initialized at C:\querycam\data\db\querycam.sqlite3
+ERROR:chromadb.telemetry.product.posthog:Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+ERROR:chromadb.telemetry.product.posthog:Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+INFO:querycam.rag.vector_store:ChromaDBVectorStore ready (path=C:\querycam\data\vector_store, metric=cosine, collection=querycam_objects, count=420)
+INFO:querycam.orchestration.vram_sentinel:VRAMSentinel started (poll=500ms, cap=92%)
+INFO:querycam.controller:Validating video file...
+INFO:querycam.controller:Loading YOLOv11 + Sentence-Encoder (CPU)...
+INFO:querycam.models.yolo_detector:onnxruntime available providers: ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+INFO:querycam.models.yolo_detector:YOLOv11Detector loaded from C:\querycam\data\weights\yolov11n_forensic_finetuned.onnx (CPUExecutionProvider).
+INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+C:\querycam\venv\Lib\site-packages\transformers\tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+INFO:querycam.models.sentence_encoder:SentenceTransformerEncoder ready (dim=384, cpu).
+INFO:querycam.orchestration.gpu_mutex:GPU lock acquired for phase=ingestion (VRAM used=16.7%)
+INFO:querycam.controller:Extracting frames (OpenCV motion filter, 5FPS + 640x640)...
+INFO:querycam.ingestion.motion_filter:extract_frames(test-video.mp4): 94 sampled @ 5FPS -> 1 keyframes (98.9% discarded, target >=60%)
+INFO:querycam.controller:Loading BLIP-Base (GPU, float16)...
+INFO:querycam.models.blip_captioner:Loading BLIP-Base VLM from Salesforce/blip-image-captioning-base onto device=cuda ...
+INFO:querycam.models:BLIPCaptioner materialized on device=cuda
+INFO:querycam.models.blip_captioner:BLIP-Base ready on cuda (dtype=torch.float16).
+INFO:querycam.controller:YOLOv11 + BLIP: keyframe 1/1...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:01<00:00,  1.58s/it]Batches: 100%|##########| 1/1 [00:01<00:00,  1.58s/it]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 67.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 59.57it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 45.70it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 64.54it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 57.42it/s]
+INFO:querycam.controller:Unloading BLIP, releasing VRAM...
+INFO:querycam.models:BLIPCaptioner: CUDA cache cleared, VRAM released.
+INFO:querycam.orchestration.vram_sentinel:emergency_gc() complete.
+INFO:querycam.orchestration.gpu_mutex:GPU lock released (was: ingestion). VRAM cleared.
+INFO:querycam.controller:Rendering processed video (full-frame YOLO pass)...
+INFO:querycam.controller:Annotated video rendered for session=b76cfe03-6cc0-4e34-8adf-aef4d11e9954 -> C:\querycam\data\processed_videos\b76cfe03-6cc0-4e34-8adf-aef4d11e9954_annotated_raw_preview.mp4
+INFO:querycam.controller:Finalizing index...
+INFO:querycam.orchestration.gpu_mutex:GPU lock acquired for phase=query (VRAM used=17.7%)
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 29.77it/s]
+ERROR:chromadb.telemetry.product.posthog:Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+INFO:querycam.models.qwen_llm:Loading Qwen2.5-1.5B-Instruct (4-bit GGUF) — device=cuda, n_gpu_layers=-1, n_ctx=4096
+INFO:querycam.models.qwen_llm:Qwen2.5-1.5B ready.
+INFO:querycam.models:QwenLLMEngine: CUDA cache cleared, VRAM released.
+INFO:querycam.orchestration.vram_sentinel:emergency_gc() complete.
+INFO:querycam.orchestration.gpu_mutex:GPU lock released (was: query). VRAM cleared.
+INFO:querycam.controller:Validating video file...
+INFO:querycam.controller:Loading YOLOv11 + Sentence-Encoder (CPU)...
+INFO:querycam.orchestration.gpu_mutex:GPU lock acquired for phase=ingestion (VRAM used=17.7%)
+INFO:querycam.controller:Extracting frames (OpenCV motion filter, 5FPS + 640x640)...
+INFO:querycam.ingestion.motion_filter:extract_frames(crowd.mp4): 44 sampled @ 5FPS -> 5 keyframes (88.6% discarded, target >=60%)
+INFO:querycam.controller:Loading BLIP-Base (GPU, float16)...
+INFO:querycam.models.blip_captioner:Loading BLIP-Base VLM from Salesforce/blip-image-captioning-base onto device=cuda ...
+C:\querycam\venv\Lib\site-packages\transformers\tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+INFO:querycam.models:BLIPCaptioner materialized on device=cuda
+INFO:querycam.models.blip_captioner:BLIP-Base ready on cuda (dtype=torch.float16).
+INFO:querycam.controller:YOLOv11 + BLIP: keyframe 1/5...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 12.55it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 63.50it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 61.75it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 54.94it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 53.05it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 52.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 74.01it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 66.38it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 68.33it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 62.15it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 70.33it/s]
+INFO:querycam.controller:YOLOv11 + BLIP: keyframe 2/5...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 54.10it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 58.73it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 64.48it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 86.87it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 48.45it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 63.29it/s]
+INFO:querycam.controller:YOLOv11 + BLIP: keyframe 3/5...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 66.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 71.91it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 52.37it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 62.89it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 71.16it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 78.22it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 66.86it/s]
+INFO:querycam.controller:YOLOv11 + BLIP: keyframe 4/5...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 44.68it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 99.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 72.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 60.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 80.31it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 60.42it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 62.44it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 70.17it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 60.08it/s]
+INFO:querycam.controller:YOLOv11 + BLIP: keyframe 5/5...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 85.98it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 58.04it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 69.27it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 83.12it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 52.32it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 44.47it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 58.49it/s]
+INFO:querycam.controller:Unloading BLIP, releasing VRAM...
+INFO:querycam.models:BLIPCaptioner: CUDA cache cleared, VRAM released.
+INFO:querycam.orchestration.vram_sentinel:emergency_gc() complete.
+INFO:querycam.orchestration.gpu_mutex:GPU lock released (was: ingestion). VRAM cleared.
+INFO:querycam.controller:Rendering processed video (full-frame YOLO pass)...
+INFO:querycam.controller:Annotated video rendered for session=816b43dd-62d0-4ba0-bb15-6e115be69a2a -> C:\querycam\data\processed_videos\816b43dd-62d0-4ba0-bb15-6e115be69a2a_annotated_raw_preview.mp4
+INFO:querycam.controller:Finalizing index...
+INFO:querycam.orchestration.gpu_mutex:GPU lock acquired for phase=query (VRAM used=17.7%)
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 47.51it/s]
+INFO:querycam.models.qwen_llm:Loading Qwen2.5-1.5B-Instruct (4-bit GGUF) — device=cuda, n_gpu_layers=-1, n_ctx=4096
+INFO:querycam.models.qwen_llm:Qwen2.5-1.5B ready.
+INFO:querycam.models:QwenLLMEngine: CUDA cache cleared, VRAM released.
+INFO:querycam.orchestration.vram_sentinel:emergency_gc() complete.
+INFO:querycam.orchestration.gpu_mutex:GPU lock released (was: query). VRAM cleared.
+INFO:querycam.orchestration.gpu_mutex:GPU lock acquired for phase=query (VRAM used=17.7%)
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 50.83it/s]
+INFO:querycam.models.qwen_llm:Loading Qwen2.5-1.5B-Instruct (4-bit GGUF) — device=cuda, n_gpu_layers=-1, n_ctx=4096
+INFO:querycam.models.qwen_llm:Qwen2.5-1.5B ready.
+INFO:querycam.models:QwenLLMEngine: CUDA cache cleared, VRAM released.
+INFO:querycam.orchestration.vram_sentinel:emergency_gc() complete.
+INFO:querycam.orchestration.gpu_mutex:GPU lock released (was: query). VRAM cleared.
