@@ -1,0 +1,4 @@
+[server]
+# Raises default 200MB limit to 2GB (2048MB) for 1-2 hour 720p CCTV footage
+maxUploadSize = 2048
+maxMessageSize = 500
